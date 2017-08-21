@@ -61,7 +61,7 @@ class SecurityIdentity extends BaseSecurityIdentity
     static public function fromAclIdentity(SecurityIdentityInterface $aclIdentity, \PropelPDO $con = null)
     {
         if ($aclIdentity instanceof UserSecurityIdentity) {
-            $identifier = $aclIdentity->getClass().'-'.$aclIdentity->getUsername();
+            $identifier = $aclIdentity->getClass().'-'.preg_replace('/[\*\%]/', '', $aclIdentity->getUsername());
             $username = true;
         } elseif ($aclIdentity instanceof RoleSecurityIdentity) {
             $identifier = $aclIdentity->getRole();
